@@ -20,3 +20,54 @@ print(f"{file_name}")
 
 
 ---
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+file_path = "/mnt/data/dataset_23_Photography Services.csv"
+df = pd.read_csv(file_path)
+
+# Step 1: Display the first few rows
+print("First 5 rows of the dataset:")
+print(df.head())
+
+# Step 2: Basic Information
+print("\nDataset Info:")
+print(df.info())
+
+print("\nSummary Statistics:")
+print(df.describe())
+
+# Step 3: Handle Missing Values
+if df.isnull().sum().sum() > 0:
+    print("\nMissing Values per Column:")
+    print(df.isnull().sum())
+    # Example handling: fill or drop
+    df = df.dropna()  # Drop rows with missing values (you can also use df.fillna())
+
+# Step 4: Analyze Specific Columns
+print("\nUnique values in each column:")
+for column in df.columns:
+    print(f"{column}: {df[column].nunique()} unique values")
+
+# Step 5: Grouping and Aggregation Example
+# Replace 'Service Type' and 'Price' with actual column names from your dataset
+if 'Service Type' in df.columns and 'Price' in df.columns:
+    print("\nAverage Price by Service Type:")
+    avg_price_by_service = df.groupby('Service Type')['Price'].mean()
+    print(avg_price_by_service)
+
+# Step 6: Visualization Example
+if 'Service Type' in df.columns and 'Price' in df.columns:
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='Service Type', y='Price', data=df)
+    plt.title("Average Price by Service Type")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+# Step 7: Save Cleaned Data
+output_path = "/mnt/data/cleaned_photography_data.csv"
+df.to_csv(output_path, index=False)
+print(f"\nCleaned dataset saved to: {output_path}")
