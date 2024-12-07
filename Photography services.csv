@@ -1,0 +1,25 @@
+import csv
+
+# CSV ফাইলের জন্য ডেটা
+photography_services = [
+    {"Photographer Name": "John Doe", "Service Type": "Wedding Photography", "Package Name": "Gold Package", 
+     "Price ($)": 1200, "Duration (Hours)": 8, "Contact Info": "johndoe@example.com", "Location": "New York"},
+    {"Photographer Name": "Jane Smith", "Service Type": "Event Photography", "Package Name": "Silver Package", 
+     "Price ($)": 800, "Duration (Hours)": 5, "Contact Info": "janesmith@example.com", "Location": "Los Angeles"},
+    {"Photographer Name": "Michael Brown", "Service Type": "Portrait Photography", "Package Name": "Standard Package", 
+     "Price ($)": 500, "Duration (Hours)": 2, "Contact Info": "michaelb@example.com", "Location": "Chicago"}
+]
+
+# CSV ফাইল তৈরি
+file_name = "Photography_Services.csv"
+
+# CSV লেখার ধাপ
+with open(file_name, mode='w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=photography_services[0].keys())
+    writer.writeheader()  # হেডার লিখুন
+    writer.writerows(photography_services)  # ডেটা যোগ করুন
+
+print(f"{file_name} ফাইল তৈরি সম্পন্ন।")
+
+
+---
